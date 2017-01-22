@@ -17,7 +17,7 @@ cv.moe <-
 	cvsd_mat <- matrix(NA, length(lam1), length(lam2))
 	lam_index <- expand.grid(lam1,lam2)
 	lam_posi <- expand.grid(1:length(lam1),1:length(lam2))
-    for (i in seq.int(NROW(lam_index))) {
+	MonteCarlo <- function(i) {		 
 	  predvec <- rep(NA, length(y))
 	  for (k in seq(nfolds)) {
 	    which <- foldid == k
@@ -36,12 +36,17 @@ cv.moe <-
 		cvm <- mean(predvec)
 		cvsd <- sd(predvec)
 	  }
-	  cvm_mat[lam_posi[i,1],lam_posi[i,2]] <- cvm 
-	  cvsd_mat[lam_posi[i,1],lam_posi[i,2]] <- cvsd 
-	}	  
-	rownames(cvm_mat) <- paste("lam1", seq(length(lam1)), sep = "")
-	colnames(cvm_mat) <- paste("lam2", seq(length(lam2)), sep = "")
-	rownames(cvsd_mat) <- paste("lam1", seq(length(lam1)), sep = "")
-	colnames(cvsd_mat) <- paste("lam2", seq(length(lam2)), sep = "")
-    list(cvm_mat=cvm_mat, cvsd_mat = cvsd_mat)
+	  res <- c(cvm, cvsd)	
+	  return(res)
+	}	
+	sim_table <- mclapply(seq(NROW(lam_index)),MonteCarlo,mc.cores = getOption("mc.cores", 4L))
+
+	#     cvm_mat[lam_posi[i,1],lam_posi[i,2]] <- cvm
+	#     cvsd_mat[lam_posi[i,1],lam_posi[i,2]] <- cvsd
+	# rownames(cvm_mat) <- paste("lam1", seq(length(lam1)), sep = "")
+	# colnames(cvm_mat) <- paste("lam2", seq(length(lam2)), sep = "")
+	# rownames(cvsd_mat) <- paste("lam1", seq(length(lam1)), sep = "")
+	# colnames(cvsd_mat) <- paste("lam2", seq(length(lam2)), sep = "")
+    # list(cvm_mat=cvm_mat, cvsd_mat = cvsd_mat)
+	sim_table
 }
