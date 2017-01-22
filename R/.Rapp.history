@@ -1,0 +1,183 @@
+library(HDtweedie)
+examples(HDtweedie)
+example(HDtweedie)
+m2
+auto
+head(data)
+head(auto)
+crossprod
+crossprod(1:3,1:3)
+5*15,000
+5*15000
+rnorm(100, 0, 10)
+a = rnorm(100, 0, 10)
+a
+a = rnorm(10000, 0, 10)
+a = rnorm(1000000, 0, 10)
+hist(a)
+5210.87/7
+0.05/(0.05+0.009)
+17/1.5
+2/1.5
+0.5-0.4082
+pnorm
+pnorm(17,15,1.5,lower.tail=F)
+1-(1-0.0918)^20-20*0.0918*(1-0.0918)
+(1-0.0918)^20
+1-(1-0.0918)^20-20*0.0918*(1-0.0918)^19
+pnorm(1515,1500,sqrt(15000),lower.tail=F)
+15/sqrt(15000)
+0.5-0.1224
+0.5-0.01224
+0.5-0.0478
+300*5/11
+300*(5/11)*(1-5/11)
+-6/sqrt(74.38)
+pnorm(130,136,74.38,lower.tail=F)
+20 + 36*20/40 + 38 * 60 /60
+20 + 38 * 80 /60
+library(mgcv)
+require(mgcv)
+dat <- gamSim(3,n=400)
+b<-gam(y ~ s(x2,by=x1),data=dat)
+dat <- gamSim(4)
+dat
+s(x2,by=fac)
+library(KERE)
+N <- 200#
+X1 <- runif(N)#
+X2 <- 2*runif(N)#
+X3 <- 3*runif(N)#
+SNR <- 10 #
+Y <- X1**1.5 + 2 * (X2**.5) + X1*X3#
+sigma <- sqrt(var(Y)/SNR)#
+Y <- Y + X2*rnorm(N,0,sigma)#
+X <- cbind(X1,X2,X3)
+kern <- rbfdot(sigma=0.1)#
+lambda <- exp(seq(log(0.5),log(0.01),len=10))#
+m1 <- KERE(x=X, y=Y, kern=kern, lambda = lambda, omega = 0.5)
+269.72/5
+269.72/4
+67.43/2
+269.72-33.71
+236.01/3
+?pmax
+pmin(5:1, pi)
+load("/Users/yiyang/Dropbox/collaborator/Yanjia/FG/realdata/internel_model_ncvreg/adlasso_gamma2/colon_result.rda")
+res
+25+10+30+492+64+10
+631/2
+53.91+150.38+159.17
+363.46/2
+363.46/2+46
+315.5-227.73
+87.77+240
+library(stat4)
+library(stats4)
+set.seed(680)n=10; p=5; sigma.star=1
+qr.solve(t(X)%*%X) %*% t(X)%*%y
+beta.star
+y
+qr.solve(crossprod(X)) %*% crossprod(X,y)
+qr.solve(crossprod(X), crossprod(X,y))
+set.seed(680)
+q=min(c(n,p))
+out=svd(X, nu=q, nv=q)
+X=cbind(X[,1],X)
+svd(X)
+out=svd(X, nu=10, nv=10)
+out=svd(X, nu=3, nv=3)
+out
+?svd
+svd(X, nu=10, nv=3)
+svd(X, nu=6, nv=3)
+svd(X, nu=, nv=3)
+X=matrix(rnorm(n*p), nrow=n, ncol=p)
+svd(X, nu=,5 nv=3)
+svd(X, nu=5 nv=3)
+svd(X, nu=5, nv=3)
+X
+svd(X, nu=4, nv=4)
+svd(X, nu=5, nv=\5)
+svd(X, nu=5, nv=5)
+set.seed(5701)n=5; p=10X=cbind(1, matrix(rnorm(n*(p-1)), nrow=n, ncol=(p-1)))beta.star=rep(1,p)y=X%*%beta.star + 1*rnorm(n)xbar=apply(X[,-1], 2, mean); ybar=mean(y)Xtilde=scale(X[,-1], center=xbar, scale=FALSE); ytilde=y-ybarq=min(c(n-1, p-1))out=svd(Xtilde, nu=q, nv=q)
+lam.vec=10^seq(from=-8, to=8, by=0.5) beta.hat.matrix=matrix(NA, nrow=p, ncol=length(lam.vec)) for(j in 1:length(lam.vec)){  H=diag(out$d[1:q]/(out$d[1:q]^2 + lam.vec[j]))  bhatm1=out$v%*%H%*%t(out$u)%*%ytilde  bhat1=ybar - sum(xbar*bhatm1)  beta.hat.matrix[,j]=c(bhat1, bhatm1)}
+lam.vec=10^seq(from=-8, to=8, by=0.5)
+beta.hat.matrix=matrix(NA, nrow=p, ncol=length(lam.vec)) for(j in 1:length(lam.vec)){  H=diag(out$d[1:q]/(out$d[1:q]^2 + lam.vec[j]))  bhatm1=out$v%*%H%*%t(out$u)%*%ytilde  bhat1=ybar - sum(xbar*bhatm1)  beta.hat.matrix[,j]=c(bhat1, bhatm1)}
+library(glmvsd)
+example(glmvsd)
+b_AIC
+v1_BIC
+getwd()
+library(gglasso)
+data(Bardet)
+data(bardet)
+load("/Users/yiyang/Dropbox/Teaching/MATH680/Topic4/note/Bardet.rda")
+library(glmnet)#
+load("Bardet.rda")
+ls
+ls()
+library(e1071)
+hamming.window(10)#
+#
+x<-rnorm(500)#
+y<-stft(x, wtype="hamming.window")
+plot(x)
+plot(y)
+setwd('/Users/yiyang/Dropbox/Research/prog_project/moe/R')
+moe <- function(x, y, K, lam1 = NULL, lam2 = NULL, #
+					maxit = 200, eps = 1e-6){#
+    this.call <- match.call()#
+    if (!is.matrix(x)) #
+        stop("x has to be a matrix")	#
+    if (any(is.na(x))) #
+        stop("Missing values in x not allowed!")#
+#
+    y <- drop(y)#
+    np <- dim(x)#
+    nobs <- as.integer(np[1])#
+    nvars <- as.integer(np[2])#
+    vnames <- colnames(x)#
+    if (is.null(vnames)) #
+        vnames <- paste("V", seq(nvars), sep = "")#
+    if (length(y) != nobs) #
+        stop("x and y have different number of rows")#
+    if (!is.numeric(y)) #
+        stop("The response y must be numeric. Factors must be converted to numeric")#
+	phi <- rep(1,K)#
+	beta <- matrix(rnorm((nvars+1)*K), nvars+1, K)#
+	alpha <- matrix(rnorm((nvars+1)*K), nvars+1, K)#
+	xx <- cbind(1,x) #
+	obj <- rep(NA,maxit)#
+	npass = 0#
+	while(1){#
+		exp_xa <- exp(xx %*% alpha)#
+		rowsum_xa <- rowSums(exp_xa)#
+		gk <- exp_xa/rowsum_xa#
+		xb <- xx %*% beta#
+		hk <- matrix(NA, nobs, K)#
+		for(j in 1:K) hk[,j] <- dnorm(y,mean=xb[,j],sd=sqrt(phi[j]))#
+		wik <- (gk * hk) / rowSums(gk * hk)#
+		for(j in 1:K){#
+			fit1 <- glmnet(x=x, y=y, lambda = lam1, alpha = 1, #
+							standardize = FALSE,#
+							family="gaussian", weights=wik[,j])#
+			beta[,j] <- as.double(rbind2(fit1$a0,fit1$beta))#
+			phi[j] <- sum(wik[,j]*(y-predict(fit1,newx=x))^2) / sum(wik[,j])#
+		}#
+		fit2 <- glmnet(x=x, y=wik, lambda = lam2, alpha = 1, #
+						standardize = FALSE,#
+						family="multinomial", type.multinomial="grouped")#
+		alpha[1,] <- fit2$a0#
+		for(j in 1:K) alpha[-1,j] <- as.double(fit2$beta[[j]])#
+	    npass = npass + 1#
+	    if(npass > maxit) break#
+		obj[npass] <-  sum(log(rowSums(gk * hk))) #
+					- nobs * lam1 * sum(abs(beta)) #
+					- lam2 * sum(sqrt(rowSums(alpha * alpha)))#
+		if(npass>1 && abs(obj[npass]-obj[npass-1])<eps)	break	#
+	}#
+	outlist <- list(alpha=alpha, beta=beta, obj=obj[1:npass])#
+    class(outlist) <- "gglasso"#
+	outlist#
+}

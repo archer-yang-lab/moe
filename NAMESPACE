@@ -1,0 +1,2 @@
+importFrom(utils,head,tail,packageDescription)
+export(moe)
