@@ -22,7 +22,7 @@ cv.moe <-
 	  for (k in seq(nfolds)) {
 	    which <- foldid == k
 	    y_sub <- y[!which]
-	    fit <- moe(x=x[!which, , drop = FALSE], y=y_sub, K=K, lam1=lam_index[i,1], lam2=lam2[i,2],...)
+	    fit <- moe(x=x[!which, , drop = FALSE], y=y_sub, K=K, lam1=lam_index[i,1], lam2=lam_index[i,2],...)
 		xx <- cbind(1,x[which, , drop = FALSE]) # design matrix with intercept 
 		exp_xa <- exp(xx %*% fit$alpha)
 		rowsum_xa <- rowSums(exp_xa)

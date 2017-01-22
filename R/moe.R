@@ -1,5 +1,5 @@
 moe <- function(x, y, K, lam1 = NULL, lam2 = NULL, 
-					maxit = 200, eps = 1e-4, option = TRUE){
+					maxit = 200, eps = 1e-2, option = TRUE){
     this.call <- match.call()
 	# initialization of regularization parameter
     if (!is.matrix(x)) 
