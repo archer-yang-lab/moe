@@ -40,13 +40,13 @@ cv.moe <-
 	  return(res)
 	}	
 	sim_table <- mclapply(seq(NROW(lam_index)),MonteCarlo,mc.cores = getOption("mc.cores", ncore))
-
-	#     cvm_mat[lam_posi[i,1],lam_posi[i,2]] <- cvm
-	#     cvsd_mat[lam_posi[i,1],lam_posi[i,2]] <- cvsd
-	# rownames(cvm_mat) <- paste("lam1", seq(length(lam1)), sep = "")
-	# colnames(cvm_mat) <- paste("lam2", seq(length(lam2)), sep = "")
-	# rownames(cvsd_mat) <- paste("lam1", seq(length(lam1)), sep = "")
-	# colnames(cvsd_mat) <- paste("lam2", seq(length(lam2)), sep = "")
-    # list(cvm_mat=cvm_mat, cvsd_mat = cvsd_mat)
-	sim_table
+    mat <- matrix(unlist(sim_table),ncol = 2, byrow = T)
+	mm_ind <- lam_posi[which.max(mat[,1]),]
+    cvm_mat <- matrix(mat[,1],nrow=length(lam1), byrow = F)
+    cvsd_mat <- matrix(mat[,2],nrow=length(lam1), byrow = F)
+	rownames(cvm_mat) <- paste("lam1_", seq(length(lam1)), sep = "")
+	colnames(cvm_mat) <- paste("lam2_", seq(length(lam2)), sep = "")
+	rownames(cvsd_mat) <- paste("lam1_", seq(length(lam1)), sep = "")
+	colnames(cvsd_mat) <- paste("lam2_", seq(length(lam2)), sep = "")
+    list(cvm_mat=cvm_mat, cvsd_mat = cvsd_mat, mm_ind=mm_ind)
 }
