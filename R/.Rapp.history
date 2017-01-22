@@ -124,60 +124,57 @@ x<-rnorm(500)#
 y<-stft(x, wtype="hamming.window")
 plot(x)
 plot(y)
-setwd('/Users/yiyang/Dropbox/Research/prog_project/moe/R')
-moe <- function(x, y, K, lam1 = NULL, lam2 = NULL, #
-					maxit = 200, eps = 1e-6){#
-    this.call <- match.call()#
-    if (!is.matrix(x)) #
-        stop("x has to be a matrix")	#
-    if (any(is.na(x))) #
-        stop("Missing values in x not allowed!")#
+145+85.83
+library(moe)#
+K = 3#
+N = 3000#
+p = 20 #
+mu<-rep(0,p)#
+covmat <- function(rho, p) {#
+  rho^(abs(outer(seq(p), seq(p), "-")))#
+}#
+x <- scale(mvrnorm(N,mu=mu,Sigma=covmat(0,p)))#
+nnb1 <- c(1,   2.5, -1,    0,   0,    0,    0, rep(0,p-6))#
+nnb2 <- c(-1,  0,    0,    1.4, 2,    0,    0, rep(0,p-6))#
+nnb3 <- c(2,   0,    0,    0,   0,    1.5, -1, rep(0,p-6))#
+true_beta <- rbind(nnb1,nnb2,nnb3)#
+nna1 <- c( 1,   0, 0, 2, 0, 0, -1.5, rep(0,p-6)) #
+nna2 <- c(-1.5, 0, 0, -2, 0, 0,  2  , rep(0,p-6)) #
+nna3 <- c(-2,   0, 0, 2, 0, 0, -2  , rep(0,p-6))#
+true_alpha <- rbind(nna1,nna2,nna3)#
+sig1 <- c(0.5, 1.5, 1)#
 #
-    y <- drop(y)#
-    np <- dim(x)#
-    nobs <- as.integer(np[1])#
-    nvars <- as.integer(np[2])#
-    vnames <- colnames(x)#
-    if (is.null(vnames)) #
-        vnames <- paste("V", seq(nvars), sep = "")#
-    if (length(y) != nobs) #
-        stop("x and y have different number of rows")#
-    if (!is.numeric(y)) #
-        stop("The response y must be numeric. Factors must be converted to numeric")#
-	phi <- rep(1,K)#
-	beta <- matrix(rnorm((nvars+1)*K), nvars+1, K)#
-	alpha <- matrix(rnorm((nvars+1)*K), nvars+1, K)#
-	xx <- cbind(1,x) #
-	obj <- rep(NA,maxit)#
-	npass = 0#
-	while(1){#
-		exp_xa <- exp(xx %*% alpha)#
-		rowsum_xa <- rowSums(exp_xa)#
-		gk <- exp_xa/rowsum_xa#
-		xb <- xx %*% beta#
-		hk <- matrix(NA, nobs, K)#
-		for(j in 1:K) hk[,j] <- dnorm(y,mean=xb[,j],sd=sqrt(phi[j]))#
-		wik <- (gk * hk) / rowSums(gk * hk)#
-		for(j in 1:K){#
-			fit1 <- glmnet(x=x, y=y, lambda = lam1, alpha = 1, #
-							standardize = FALSE,#
-							family="gaussian", weights=wik[,j])#
-			beta[,j] <- as.double(rbind2(fit1$a0,fit1$beta))#
-			phi[j] <- sum(wik[,j]*(y-predict(fit1,newx=x))^2) / sum(wik[,j])#
-		}#
-		fit2 <- glmnet(x=x, y=wik, lambda = lam2, alpha = 1, #
-						standardize = FALSE,#
-						family="multinomial", type.multinomial="grouped")#
-		alpha[1,] <- fit2$a0#
-		for(j in 1:K) alpha[-1,j] <- as.double(fit2$beta[[j]])#
-	    npass = npass + 1#
-	    if(npass > maxit) break#
-		obj[npass] <-  sum(log(rowSums(gk * hk))) #
-					- nobs * lam1 * sum(abs(beta)) #
-					- lam2 * sum(sqrt(rowSums(alpha * alpha)))#
-		if(npass>1 && abs(obj[npass]-obj[npass-1])<eps)	break	#
-	}#
-	outlist <- list(alpha=alpha, beta=beta, obj=obj[1:npass])#
-    class(outlist) <- "gglasso"#
-	outlist#
+eta <- cbind(1,x)%*%t(true_beta)#
+#
+exp_mu <- exp(cbind(1,x)%*%t(true_alpha))#
+rowsum_mu <- rowSums(exp_mu)#
+pi <- exp_mu/rowsum_mu#
+y <- 0#
+for(i in 1:N){#
+	u<-runif(1)#
+	if(u <= pi[i,1]) y[i] <- rnorm(1, eta[i,1], sig1[1])#
+	if((pi[i,1]<u) && (u<=(pi[i,1]+pi[i,2]))) y[i]<-rnorm(1,eta[i,2],sig1[2])#
+	if((u>(pi[i,1]+pi[i,2]))) y[i]<-rnorm(1,eta[i,3],sig1[3])	#
 }
+setwd('/Users/yiyang/Dropbox/collaborator/MOE/code')
+lam1 = c(0.08, 0.09)#
+lam2 = c(0.009, 0.01)#
+fit1 <- cv.moe(x=x, y=y, K=K, lam1 = lam1, lam2 = lam2, nfold = 3)
+fit1
+lam1
+lam2
+expand(lam1,lam2)
+expand()
+>expand()
+?expand()
+expand.grid(lam1,lam2)
+lam_index <- expand.grid(lam1,lam2)
+lam_index
+seq.int(NROW(lam_index))
+lam_index[i,1
+]
+lam_index[1,1]
+lam_posi <- expand.grid(length(lam1),length(lam2))
+lam_posi <- expand.grid(1:length(lam1),1:length(lam2))
+setwd('/Users/yiyang/Dropbox/Research/prog_project/moe/R')
+lam_posi

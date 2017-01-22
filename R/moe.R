@@ -1,5 +1,5 @@
 moe <- function(x, y, K, lam1 = NULL, lam2 = NULL, 
-					maxit = 200, eps = 1e-6, option = TRUE){
+					maxit = 200, eps = 1e-4, option = TRUE){
     this.call <- match.call()
 	# initialization of regularization parameter
     if (!is.matrix(x)) 
@@ -101,7 +101,7 @@ moe <- function(x, y, K, lam1 = NULL, lam2 = NULL,
 					- lam2 * sum(sqrt(rowSums(alpha * alpha)))
 		if(npass>1 && abs(obj[npass]-obj[npass-1])<eps)	break	
 	}
-	outlist <- list(alpha=alpha, beta=beta, obj=obj[1:npass])
+	outlist <- list(alpha=alpha, beta=beta, phi=phi, obj=obj[1:npass])
     class(outlist) <- "gglasso"
 	outlist
 }

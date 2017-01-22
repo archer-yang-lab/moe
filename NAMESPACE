@@ -1,2 +1,3 @@
 importFrom(utils,head,tail,packageDescription)
-export(moe)
+export(moe,cv.moe)
+S3method("plot","cv.moe")
