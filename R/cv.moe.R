@@ -1,5 +1,5 @@
 cv.moe <-
-  function(x, y, K, lam1 = NULL, lam2 = NULL, nfolds=5, ...) {
+  function(x, y, K, lam1 = NULL, lam2 = NULL, nfolds=5, ncore=NULL, ...) {
     if (is.null(lam1)) {
       stop("user must provide a lam1 sequence")
     }
@@ -39,7 +39,7 @@ cv.moe <-
 	  res <- c(cvm, cvsd)	
 	  return(res)
 	}	
-	sim_table <- mclapply(seq(NROW(lam_index)),MonteCarlo,mc.cores = getOption("mc.cores", 4L))
+	sim_table <- mclapply(seq(NROW(lam_index)),MonteCarlo,mc.cores = getOption("mc.cores", ncore))
 
 	#     cvm_mat[lam_posi[i,1],lam_posi[i,2]] <- cvm
 	#     cvsd_mat[lam_posi[i,1],lam_posi[i,2]] <- cvsd
